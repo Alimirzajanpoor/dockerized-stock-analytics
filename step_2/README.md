@@ -2,11 +2,9 @@
 
 This repository contains code for updating stock performance using concurrent processing. It includes the following files:
 
-## main.py
+## performance_cal.py
 
 This file serves as the entry point of the application. It retrieves stock data from a provided URL and updates the stock performance using concurrent processing.
-
-- The code imports the necessary libraries, including pandas for data manipulation, redis for interacting with a Redis database, json for working with JSON data, concurrent.futures for concurrent processing, and time for simulating performance calculation.
 
 - It defines utility functions `calculate_performance()` and `update_performance()` for calculating and updating the stock performance.
 
