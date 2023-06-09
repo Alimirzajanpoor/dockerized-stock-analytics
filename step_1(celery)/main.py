@@ -33,20 +33,17 @@ for key in r.scan_iter():
 casts = pd.read_csv(url)
 filtered = casts[casts["Stock"] == "stock1"]
 
-# print(time_stock1)
-# updater.start_task(time_stock1)
-# print(df)
+
 
 print(filtered)
 
 for index, row in filtered.iterrows():
-    # Access the values of each column in the current row
+ 
     date = row["Time"]
     stock = row["Stock"]
     price = row["Price"]
 
-    # Perform further operations or analysis on the row data
-    # For example, print the values of each column
+
     print(f"Date: {date}, Stock: {stock}, Price: {price}")
 
     existing_row = r.get("stock1")
@@ -57,7 +54,5 @@ for index, row in filtered.iterrows():
     time_list.append(convert_time_format(str(date)))
 
     data = existing_value
-    # print(type(stock_data_json))
-    # Process the time value
-    # asyncio.run(updater.start_task(str(date), data, "stock1"))
-# celery -A myapp.celeryapp worker --loglevel=info -P eventlet
+
+
