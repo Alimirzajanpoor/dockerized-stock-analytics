@@ -29,3 +29,6 @@ This file provides functionality for updating stock data using Celery for asynch
 - It also defines the `start_task()` function, which converts time values, schedules tasks using Celery, and updates stock data in Redis.
 
 Please note that Celery is used in this project to simulate the updating scenario by scheduling tasks asynchronously.
+
+To run Celery, you need to either run it in your terminal or in a Docker environment. You can use the following command in the terminal to run Celery:
+`celery -A updater worker --pool=solo --loglevel=info`
