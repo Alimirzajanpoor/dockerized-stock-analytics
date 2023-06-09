@@ -2,6 +2,8 @@ import pandas as pd
 import redis
 from datetime import datetime
 import json
+import updater
+import asyncio
 
 
 def convert_time_string(time_string):
@@ -31,28 +33,25 @@ for key in r.scan_iter():
 
 
 casts = pd.read_csv(url)
-filtered = casts[casts["Stock"] == "stock1"]
 
 
+def loop_stocks(stock):
+    for index, row in filtered.iterrows():
+        filtered = casts[casts["Stock"] == stock]
 
-print(filtered)
+        date = row["Time"]
+        price = row["Price"]
 
-for index, row in filtered.iterrows():
- 
-    date = row["Time"]
-    stock = row["Stock"]
-    price = row["Price"]
+        existing_row = r.get("stock1")
+        existing_value = json.loads(existing_row)
+        price_list = existing_value["price"]
+        price_list.append(price)
+        time_list = existing_value["time"]
+        time_list.append(convert_time_format(str(date)))
 
-
-    print(f"Date: {date}, Stock: {stock}, Price: {price}")
-
-    existing_row = r.get("stock1")
-    existing_value = json.loads(existing_row)
-    price_list = existing_value["price"]
-    price_list.append(price)
-    time_list = existing_value["time"]
-    time_list.append(convert_time_format(str(date)))
-
-    data = existing_value
+        asyncio.run(updater.start_task(date, existing_value, stock))
 
 
+column_stock = ["stock1", "stock2", "stock3"]
+for i in column_stock:
+    loop_stocks(i)
